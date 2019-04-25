@@ -13,6 +13,9 @@
 		0400FE2B2271457800C42B01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0400FE2A2271457800C42B01 /* Assets.xcassets */; };
 		0400FE2E2271457800C42B01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0400FE2C2271457800C42B01 /* LaunchScreen.storyboard */; };
 		0400FE312271457800C42B01 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0400FE302271457800C42B01 /* main.m */; };
+		0400FE39227149C000C42B01 /* DCSwipCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0400FE38227149C000C42B01 /* DCSwipCell.m */; };
+		0400FE3C22714F3E00C42B01 /* DCSwipSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 0400FE3B22714F3E00C42B01 /* DCSwipSegment.m */; };
+		797F72067D798C9213D7510D /* libPods-SwipTableView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB190BB60BD5D10F669A4C15 /* libPods-SwipTableView.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,13 @@
 		0400FE2D2271457800C42B01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0400FE2F2271457800C42B01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0400FE302271457800C42B01 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0400FE37227149C000C42B01 /* DCSwipCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSwipCell.h; sourceTree = "<group>"; };
+		0400FE38227149C000C42B01 /* DCSwipCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSwipCell.m; sourceTree = "<group>"; };
+		0400FE3A22714F3E00C42B01 /* DCSwipSegment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSwipSegment.h; sourceTree = "<group>"; };
+		0400FE3B22714F3E00C42B01 /* DCSwipSegment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSwipSegment.m; sourceTree = "<group>"; };
+		2BD27DED7D367A1C150D4AC2 /* Pods-SwipTableView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipTableView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwipTableView/Pods-SwipTableView.debug.xcconfig"; sourceTree = "<group>"; };
+		EB190BB60BD5D10F669A4C15 /* libPods-SwipTableView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwipTableView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFE2574A7BD3AFF449A1CB16 /* Pods-SwipTableView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipTableView.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipTableView/Pods-SwipTableView.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				797F72067D798C9213D7510D /* libPods-SwipTableView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +55,8 @@
 			children = (
 				0400FE202271457700C42B01 /* SwipTableView */,
 				0400FE1F2271457700C42B01 /* Products */,
+				7BEC45364C647A84761DDD93 /* Pods */,
+				A82471B308653F8EAEF56B64 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,6 +75,10 @@
 				0400FE222271457700C42B01 /* AppDelegate.m */,
 				0400FE242271457700C42B01 /* ViewController.h */,
 				0400FE252271457700C42B01 /* ViewController.m */,
+				0400FE37227149C000C42B01 /* DCSwipCell.h */,
+				0400FE38227149C000C42B01 /* DCSwipCell.m */,
+				0400FE3A22714F3E00C42B01 /* DCSwipSegment.h */,
+				0400FE3B22714F3E00C42B01 /* DCSwipSegment.m */,
 				0400FE272271457700C42B01 /* Main.storyboard */,
 				0400FE2A2271457800C42B01 /* Assets.xcassets */,
 				0400FE2C2271457800C42B01 /* LaunchScreen.storyboard */,
@@ -71,6 +88,23 @@
 			path = SwipTableView;
 			sourceTree = "<group>";
 		};
+		7BEC45364C647A84761DDD93 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2BD27DED7D367A1C150D4AC2 /* Pods-SwipTableView.debug.xcconfig */,
+				FFE2574A7BD3AFF449A1CB16 /* Pods-SwipTableView.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A82471B308653F8EAEF56B64 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EB190BB60BD5D10F669A4C15 /* libPods-SwipTableView.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -78,6 +112,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0400FE342271457800C42B01 /* Build configuration list for PBXNativeTarget "SwipTableView" */;
 			buildPhases = (
+				BE4FA307CAEF5E26A9E0A6BD /* [CP] Check Pods Manifest.lock */,
 				0400FE1A2271457700C42B01 /* Sources */,
 				0400FE1B2271457700C42B01 /* Frameworks */,
 				0400FE1C2271457700C42B01 /* Resources */,
@@ -136,14 +171,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		BE4FA307CAEF5E26A9E0A6BD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SwipTableView-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0400FE1A2271457700C42B01 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				0400FE262271457700C42B01 /* ViewController.m in Sources */,
+				0400FE39227149C000C42B01 /* DCSwipCell.m in Sources */,
 				0400FE312271457800C42B01 /* main.m in Sources */,
 				0400FE232271457700C42B01 /* AppDelegate.m in Sources */,
+				0400FE3C22714F3E00C42B01 /* DCSwipSegment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +341,7 @@
 		};
 		0400FE352271457800C42B01 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BD27DED7D367A1C150D4AC2 /* Pods-SwipTableView.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +359,7 @@
 		};
 		0400FE362271457800C42B01 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FFE2574A7BD3AFF449A1CB16 /* Pods-SwipTableView.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
