@@ -9,6 +9,7 @@
 #import "DCSwipCell.h"
 #import "DCSwipSegment.h"
 #import <Masonry.h>
+#import <ReactiveObjC.h>
 
 #define DCScreenWidth [UIScreen mainScreen].bounds.size.width
 #define DCScreenHeight [UIScreen mainScreen].bounds.size.height
@@ -31,7 +32,11 @@
         cell.selectionStyle = 0;
         cell.tableView = tableView;
         [cell initUI];
-        [cell config];
+        __weak typeof(cell)weakCell = cell;
+        [[(NSObject *)tableView.delegate rac_signalForSelector:@selector(scrollViewDidScroll:)] subscribeNext:^(RACTuple * _Nullable x) {
+            RACTupleUnpack(UIScrollView *sc) = x;
+            [weakCell configScroll:sc];
+        }];
     }
     return cell;
 }
@@ -52,9 +57,13 @@
     }];
 }
 
-- (void)config
+- (void)configScroll:(UIScrollView *)sc
 {
-    
+    if (sc == self.collectionView) {
+        
+    } else {
+        
+    }
 }
 
 #pragma mark -- UICollectionViewDataSource
@@ -66,7 +75,7 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"segementCell" forIndexPath:indexPath];
-   
+    
     return cell;
 }
 
@@ -74,6 +83,11 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return CGSizeMake(DCScreenWidth, DCScreenHeight - self.segment.frame.size.height);
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self configScroll:scrollView];
 }
 
 #pragma mark - Lazzy
@@ -94,3 +108,15 @@
 }
 
 @end
+
+
+@interface  NSObject (DCSwip)
+
+@end
+
+@implementation NSObject (DCSwip)
+
+- (void)scrollViewDidScroll:(UIScrollView *)sc{}
+
+@end
+
