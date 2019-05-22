@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "DCSwipCell.h"
 
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,DCSwipCellDataSource>
 
 @end
 
@@ -39,9 +39,27 @@
         cell.textLabel.text = [NSString stringWithFormat:@"row=%ld",(long)indexPath.row];
         return cell;
     } else {
-        DCSwipCell *cell = [DCSwipCell cellWithTableView:tableView];
+        DCSwipCell *cell = [DCSwipCell cellWithTableView:tableView dataSource:self];
         return cell;
     }
+}
+
+#pragma mark - DCSwipCellDataSource
+/** 内容个数 */
+- (NSInteger)swipCellItemCount
+{
+    return 4;
+}
+/** 顶部标题数组 */
+- (NSArray *)swipCellTopTitles
+{
+    return @[@"全部",@"医生",@"患者",@"医患之家"];
+}
+/** 内容视图 */
+- (UIScrollView *)swipCellContentViewWithIndex:(NSInteger)index
+{
+    UITableView *tableView = [UITableView new];
+    return tableView;
 }
 
 

@@ -39,7 +39,7 @@
 - (instancetype)initWithFrame:(CGRect)frame scrollEnabled:(BOOL)scrollEnabled
 {
     self = [self initWithFrame:frame];
-    _collectionV.scrollEnabled = NO;
+    _collectionV.scrollEnabled = scrollEnabled;
     return self;
 }
 
