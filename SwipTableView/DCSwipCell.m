@@ -7,7 +7,7 @@
 //
 
 #import "DCSwipCell.h"
-#import "DCSwipSegment.h"
+#import "DCSegmentView.h"
 #import <Masonry.h>
 #import <ReactiveObjC.h>
 #import <objc/runtime.h>
@@ -60,7 +60,7 @@
 
 @interface DCSwipCell () <UICollectionViewDelegate, UICollectionViewDataSource>
 
-@property (nonatomic, strong) DCSwipSegment *segment;
+@property (nonatomic, strong) DCSegmentView *segment;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic,   weak) UITableView *tableView;
 @property (nonatomic,   weak) UITableView *currentInnerTableView;
@@ -212,26 +212,23 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     NSInteger index = scrollView.contentOffset.x/self.frame.size.width;
-    [self.segment selectItemToIndex:index];
+    [self.segment selectItemToIndex:index animated:YES];
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     NSInteger index = scrollView.contentOffset.x/self.frame.size.width;
-    [self.segment selectItemToIndex:index];
+    [self.segment selectItemToIndex:index animated:YES];
 }
 
 #pragma mark - Lazzy
-- (DCSwipSegment *)segment
+- (DCSegmentView *)segment
 {
     if (!_segment) {
-        BOOL canScroll = NO;
-        if ([self.dataSource respondsToSelector:@selector(swipCellTitleCanScroll)]) {
-            canScroll = [self.dataSource swipCellTitleCanScroll];
-        }
-        _segment = [[DCSwipSegment alloc]initWithFrame:CGRectMake(0, 0, DCScreenWidth, 44) scrollEnabled:canScroll];
+        _segment = [[DCSegmentView alloc]initWithFrame:CGRectMake(0, 0, DCScreenWidth, 44)];
+        _segment.layoutType = DCSegmentViewLayoutLeft;
         @weakify(self)
-        _segment.segementSelectBlock = ^(NSInteger index, NSString *title) {
+        _segment.selectBlock = ^(NSInteger index, NSString *title) {
             @strongify(self)
             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition: UICollectionViewScrollPositionNone animated:NO];
         };

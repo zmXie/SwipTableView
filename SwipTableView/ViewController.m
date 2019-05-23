@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _titleArray = @[@"全部",@"医生",@"患者"].mutableCopy;
+    _titleArray = @[@"全部",@"医生",@"患者",@"医患之家",@"医生1号",@"患者100号",@"医患之家",@"医生1号",@"患者100号"].mutableCopy;
     UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     tableView.delegate = self;
     tableView.dataSource = self;

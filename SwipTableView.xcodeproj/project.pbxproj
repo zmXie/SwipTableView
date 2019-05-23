@@ -14,8 +14,8 @@
 		0400FE2E2271457800C42B01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0400FE2C2271457800C42B01 /* LaunchScreen.storyboard */; };
 		0400FE312271457800C42B01 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0400FE302271457800C42B01 /* main.m */; };
 		0400FE39227149C000C42B01 /* DCSwipCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0400FE38227149C000C42B01 /* DCSwipCell.m */; };
-		0400FE3C22714F3E00C42B01 /* DCSwipSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 0400FE3B22714F3E00C42B01 /* DCSwipSegment.m */; };
 		040380DC2296311600710896 /* TestTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040380DB2296311600710896 /* TestTableView.m */; };
+		040380E12296B45700710896 /* DCSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040380E02296B45700710896 /* DCSegmentView.m */; };
 		797F72067D798C9213D7510D /* libPods-SwipTableView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB190BB60BD5D10F669A4C15 /* libPods-SwipTableView.a */; };
 /* End PBXBuildFile section */
 
@@ -32,10 +32,10 @@
 		0400FE302271457800C42B01 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0400FE37227149C000C42B01 /* DCSwipCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSwipCell.h; sourceTree = "<group>"; };
 		0400FE38227149C000C42B01 /* DCSwipCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSwipCell.m; sourceTree = "<group>"; };
-		0400FE3A22714F3E00C42B01 /* DCSwipSegment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSwipSegment.h; sourceTree = "<group>"; };
-		0400FE3B22714F3E00C42B01 /* DCSwipSegment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSwipSegment.m; sourceTree = "<group>"; };
 		040380DA2296311600710896 /* TestTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestTableView.h; sourceTree = "<group>"; };
 		040380DB2296311600710896 /* TestTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestTableView.m; sourceTree = "<group>"; };
+		040380DF2296B45700710896 /* DCSegmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSegmentView.h; sourceTree = "<group>"; };
+		040380E02296B45700710896 /* DCSegmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSegmentView.m; sourceTree = "<group>"; };
 		2BD27DED7D367A1C150D4AC2 /* Pods-SwipTableView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipTableView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwipTableView/Pods-SwipTableView.debug.xcconfig"; sourceTree = "<group>"; };
 		EB190BB60BD5D10F669A4C15 /* libPods-SwipTableView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwipTableView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFE2574A7BD3AFF449A1CB16 /* Pods-SwipTableView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipTableView.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipTableView/Pods-SwipTableView.release.xcconfig"; sourceTree = "<group>"; };
@@ -82,8 +82,8 @@
 				040380DB2296311600710896 /* TestTableView.m */,
 				0400FE37227149C000C42B01 /* DCSwipCell.h */,
 				0400FE38227149C000C42B01 /* DCSwipCell.m */,
-				0400FE3A22714F3E00C42B01 /* DCSwipSegment.h */,
-				0400FE3B22714F3E00C42B01 /* DCSwipSegment.m */,
+				040380DF2296B45700710896 /* DCSegmentView.h */,
+				040380E02296B45700710896 /* DCSegmentView.m */,
 				0400FE272271457700C42B01 /* Main.storyboard */,
 				0400FE2A2271457800C42B01 /* Assets.xcassets */,
 				0400FE2C2271457800C42B01 /* LaunchScreen.storyboard */,
@@ -206,8 +206,8 @@
 				0400FE39227149C000C42B01 /* DCSwipCell.m in Sources */,
 				0400FE312271457800C42B01 /* main.m in Sources */,
 				0400FE232271457700C42B01 /* AppDelegate.m in Sources */,
-				0400FE3C22714F3E00C42B01 /* DCSwipSegment.m in Sources */,
 				040380DC2296311600710896 /* TestTableView.m in Sources */,
+				040380E12296B45700710896 /* DCSegmentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
