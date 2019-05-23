@@ -8,8 +8,12 @@
 
 #import "ViewController.h"
 #import "DCSwipCell.h"
+#import "TestTableView.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,DCSwipCellDataSource>
+{
+    NSMutableArray *_titleArray;
+}
 
 @end
 
@@ -17,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _titleArray = @[@"全部",@"医生",@"患者"].mutableCopy;
     UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -26,12 +31,12 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row < 2) {
+    if (indexPath.row < 4) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         if (!cell) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
@@ -45,22 +50,22 @@
 }
 
 #pragma mark - DCSwipCellDataSource
-/** 内容个数 */
-- (NSInteger)swipCellItemCount
-{
-    return 4;
-}
 /** 顶部标题数组 */
 - (NSArray *)swipCellTopTitles
 {
-    return @[@"全部",@"医生",@"患者",@"医患之家"];
+    return _titleArray;
 }
 /** 内容视图 */
 - (UIScrollView *)swipCellContentViewWithIndex:(NSInteger)index
 {
-    UITableView *tableView = [UITableView new];
+    TestTableView *tableView = [TestTableView new];
+    tableView.title = _titleArray[index];
     return tableView;
 }
-
+/** 标题是否可滑动，默认为NO */
+- (BOOL)swipCellTitleCanScroll
+{
+    return NO;
+}
 
 @end

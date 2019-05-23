@@ -11,7 +11,7 @@
 #define DCWidth(view)  view.frame.size.width
 #define DCHeight(view) view.frame.size.height
 #define DCSegmentGap 12
-#define DCSegemtFont [UIFont systemFontOfSize:14]
+#define DCSegemtFont [UIFont boldSystemFontOfSize:16]
 
 @interface DCSwipSegment ()<UICollectionViewDelegate, UICollectionViewDataSource>
 {
@@ -46,7 +46,7 @@
 #pragma mark -- privateMethod
 - (void)setUp
 {
-    _themeColor = [UIColor redColor];
+    _themeColor = [UIColor colorWithRed:37/255.0 green:148/255.0 blue:1 alpha:1];
     _itemMinWidth = 55;
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -60,11 +60,11 @@
     _collectionV.backgroundColor = [UIColor whiteColor];
     [self addSubview:_collectionV];
 
-//    UIView *sepLine = [[UIView alloc]initWithFrame:CGRectMake(0, DCHeight(self) - 1, DCWidth(self), 1)];
-//    sepLine.backgroundColor = [UIColor colorWithRed:220 / 255.0 green:220 / 255.0 blue:220 / 255.0 alpha:1];
-//    [self addSubview:sepLine];
+    UIView *sepLine = [[UIView alloc]initWithFrame:CGRectMake(0, DCHeight(self) - 1, DCWidth(self), 0.5)];
+    sepLine.backgroundColor = [UIColor colorWithRed:220 / 255.0 green:220 / 255.0 blue:220 / 255.0 alpha:1];
+    [_collectionV addSubview:sepLine];
 
-    _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, DCHeight(self) - 4, _itemMinWidth, 4)];
+    _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, DCHeight(self) - 2, _itemMinWidth, 2)];
     _lineView.backgroundColor = _themeColor;
     [_collectionV addSubview:_lineView];
 
@@ -77,10 +77,12 @@
     _titleArray = titleArray;
     if (!_collectionV.scrollEnabled) {
         _itemMinWidth = DCWidth(self) / _titleArray.count;
-        CGRect newframe = _lineView.frame;
-        newframe.size.width = _itemMinWidth;
-        _lineView.frame = newframe;
     }
+    CGRect newframe = _lineView.frame;
+    newframe.origin.x = newframe.origin.x + self.lineGap;
+    newframe.size.width = _itemMinWidth - self.lineGap * 2;
+    _lineView.frame = newframe;
+    
     _widthArray = [NSMutableArray arrayWithCapacity:_titleArray.count];
     for (NSString *str in _titleArray) {
         CGFloat width = [str boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, DCHeight(_collectionV)) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{ NSFontAttributeName: DCSegemtFont } context:nil].size.width;
@@ -130,8 +132,8 @@
         CGRect cellRect = [cell.contentView convertRect:cell.contentView.frame toView:self];
         [UIView animateWithDuration:0.2 animations:^{
             CGRect newframe = self->_lineView.frame;
-            newframe.size.width = DCWidth(cell.contentView);
-            newframe.origin.x = cellRect.origin.x + self->_collectionV.contentOffset.x;
+            newframe.size.width = DCWidth(cell.contentView) - self.lineGap * 2;
+            newframe.origin.x = cellRect.origin.x + self->_collectionV.contentOffset.x + self.lineGap;
             self->_lineView.frame = newframe;
         }];
     }
@@ -142,6 +144,11 @@
         _currentTitle = _titleArray[_selectIndexPath.item];
         _currentIndex = _selectIndexPath.item;
     }
+}
+
+- (CGFloat)lineGap
+{
+    return _collectionV.scrollEnabled ? DCSegmentGap/2.f : DCSegmentGap;
 }
 
 #pragma mark -- UICollectionViewDataSource

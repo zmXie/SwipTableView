@@ -12,12 +12,10 @@
 
 @required
 
-/** 内容个数 */
-- (NSInteger)swipCellItemCount;
 /** 顶部标题数组 */
 - (NSArray *)swipCellTopTitles;
 /** 内容视图 */
-- (UIScrollView *)swipCellContentViewWithIndex:(NSInteger)index;
+- (UITableView *)swipCellContentViewWithIndex:(NSInteger)index;
 
 @optional
 /** 标题是否可滑动，默认为NO */
