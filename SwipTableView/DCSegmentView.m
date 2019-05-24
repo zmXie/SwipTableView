@@ -49,6 +49,8 @@
     _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, KDCHeight(_scrollView) - 2, 30, 2)];
     _lineView.backgroundColor = _themeColor;
     [_scrollView addSubview:_lineView];
+    
+    self.layoutType = DCSegmentViewLayoutLeft;
 }
 
 - (void)addSubViews

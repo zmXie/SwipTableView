@@ -7,7 +7,6 @@
 //
 
 #import "DCSwipCell.h"
-#import "DCSegmentView.h"
 #import <Masonry.h>
 #import <ReactiveObjC.h>
 #import <objc/runtime.h>
@@ -60,7 +59,6 @@
 
 @interface DCSwipCell () <UICollectionViewDelegate, UICollectionViewDataSource>
 
-@property (nonatomic, strong) DCSegmentView *segment;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic,   weak) UITableView *tableView;
 @property (nonatomic,   weak) UITableView *currentInnerTableView;
@@ -87,9 +85,16 @@
 
 - (void)initUI
 {
-    self.segment.titleArray = [self.dataSource swipCellTopTitles];
-    [self.contentView addSubview:self.segment];
-    [self.segment mas_makeConstraints:^(MASConstraintMaker *make) {
+    _segment = [[DCSegmentView alloc]initWithFrame:CGRectMake(0, 0, DCScreenWidth, 44)];
+    _segment.layoutType = DCSegmentViewLayoutLeft;
+    _segment.titleArray = [self.dataSource swipCellTopTitles];
+    @weakify(self)
+    _segment.selectBlock = ^(NSInteger index, NSString *title) {
+        @strongify(self)
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition: UICollectionViewScrollPositionNone animated: NO];
+    };
+    [self.contentView addSubview:_segment];
+    [_segment mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.mas_equalTo(0);
     }];
     [self.contentView addSubview:self.collectionView];
@@ -187,7 +192,7 @@
 #pragma mark - UICollectionViewDataSource & UICollectionViewDelegate
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.dataSource swipCellTopTitles].count;
+    return _segment.titleArray.count;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -211,31 +216,17 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    NSInteger index = scrollView.contentOffset.x/self.frame.size.width;
+    NSInteger index = scrollView.contentOffset.x / self.frame.size.width;
     [self.segment selectItemToIndex:index animated:YES];
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    NSInteger index = scrollView.contentOffset.x/self.frame.size.width;
+    NSInteger index = scrollView.contentOffset.x / self.frame.size.width;
     [self.segment selectItemToIndex:index animated:YES];
 }
 
 #pragma mark - Lazzy
-- (DCSegmentView *)segment
-{
-    if (!_segment) {
-        _segment = [[DCSegmentView alloc]initWithFrame:CGRectMake(0, 0, DCScreenWidth, 44)];
-        _segment.layoutType = DCSegmentViewLayoutLeft;
-        @weakify(self)
-        _segment.selectBlock = ^(NSInteger index, NSString *title) {
-            @strongify(self)
-            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition: UICollectionViewScrollPositionNone animated:NO];
-        };
-    }
-    return _segment;
-}
-
 - (UICollectionView *)collectionView
 {
     if (!_collectionView) {

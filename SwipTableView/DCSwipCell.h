@@ -7,19 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DCSegmentView.h"
 
 @protocol DCSwipCellDataSource <NSObject>
 
 @required
-
 /** 顶部标题数组 */
 - (NSArray *)swipCellTopTitles;
 /** 内容视图 */
 - (UITableView *)swipCellContentViewWithIndex:(NSInteger)index;
-
-@optional
-/** 标题是否可滑动，默认为NO */
-- (BOOL)swipCellTitleCanScroll;
 
 @end
 
@@ -27,8 +23,8 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView dataSource:(id<DCSwipCellDataSource>)dataSource;
 
+@property (nonatomic, strong, readonly) DCSegmentView *segment;
+
 - (void)reloadData;
 
 @end
-
-

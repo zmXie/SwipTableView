@@ -62,10 +62,5 @@
     tableView.title = _titleArray[index];
     return tableView;
 }
-/** 标题是否可滑动，默认为NO */
-- (BOOL)swipCellTitleCanScroll
-{
-    return NO;
-}
 
 @end

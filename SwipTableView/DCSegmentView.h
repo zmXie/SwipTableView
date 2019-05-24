@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM (NSInteger, DCSegmentViewLayoutType) {
-    DCSegmentViewLayoutLeft, //居左
+    DCSegmentViewLayoutLeft, //居左 ,默认
     DCSegmentViewLayoutCenter //居中
 };
 
@@ -18,7 +18,7 @@ typedef NS_ENUM (NSInteger, DCSegmentViewLayoutType) {
  */
 @interface DCSegmentView : UIView
 
-@property (nonatomic, strong) NSArray <NSString *>*titleArray;
+@property (nonatomic, strong) NSArray <NSString *> *titleArray;
 @property (nonatomic, strong) UIColor *themeColor;
 @property (nonatomic, assign) CGFloat itemSpace; //间距，居左默认 20  居中默认40
 @property (nonatomic, assign) DCSegmentViewLayoutType layoutType;
@@ -33,6 +33,5 @@ typedef NS_ENUM (NSInteger, DCSegmentViewLayoutType) {
  @param animated 动画
  */
 - (void)selectItemToIndex:(NSInteger)index animated:(BOOL)animated;
-
 
 @end
