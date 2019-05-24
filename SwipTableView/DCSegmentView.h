@@ -16,11 +16,11 @@ typedef NS_ENUM (NSInteger, DCSegmentViewLayoutType) {
 /**
  切换视图
  */
-@interface DCSegmentView : UIScrollView
+@interface DCSegmentView : UIView
 
-@property (nonatomic, strong) NSArray *titleArray;
+@property (nonatomic, strong) NSArray <NSString *>*titleArray;
 @property (nonatomic, strong) UIColor *themeColor;
-@property (nonatomic, assign) CGFloat itemSpace; //间距，居左默认 20  居中默认50
+@property (nonatomic, assign) CGFloat itemSpace; //间距，居左默认 20  居中默认40
 @property (nonatomic, assign) DCSegmentViewLayoutType layoutType;
 @property (nonatomic, strong, readonly) NSString *currentTitle;
 @property (nonatomic, assign, readonly) NSInteger currentIndex;
@@ -33,5 +33,6 @@ typedef NS_ENUM (NSInteger, DCSegmentViewLayoutType) {
  @param animated 动画
  */
 - (void)selectItemToIndex:(NSInteger)index animated:(BOOL)animated;
+
 
 @end
