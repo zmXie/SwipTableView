@@ -22,13 +22,34 @@
 @end
 
 
-@interface UITableView (DCSwip)
+@interface UICollectionViewCell (DCSwip)
+
+@property (nonatomic,strong) UIScrollView * dc_swipScrollView;
+
+@end
+
+@implementation UICollectionViewCell (DCSwip)
+
+- (UIScrollView *)dc_swipScrollView
+{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setDc_swipScrollView:(UIScrollView *)dc_swipScrollView
+{
+    objc_setAssociatedObject(self, @selector(dc_swipScrollView),dc_swipScrollView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+@end
+
+
+@interface UIScrollView (DCSwip)
 
 @property (nonatomic, assign) BOOL dc_swipFlag;
 
 @end
 
-@implementation UITableView (DCSwip)
+@implementation UIScrollView (DCSwip)
 
 - (BOOL)dc_swipFlag
 {
@@ -44,8 +65,8 @@
 {
     UIView *view = gestureRecognizer.view;
     UIView *otherView = otherGestureRecognizer.view;
-    if ([view isKindOfClass:[UITableView class]] && [otherView isKindOfClass:[UITableView class]]) {
-        return [(UITableView *)view dc_swipFlag] &&  [(UITableView *)otherView dc_swipFlag];
+    if ([view isKindOfClass:[UIScrollView class]] && [otherView isKindOfClass:[UIScrollView class]]) {
+        return [(UIScrollView *)view dc_swipFlag] &&  [(UIScrollView *)otherView dc_swipFlag];
     }
     return NO;
 }
@@ -55,13 +76,12 @@
 
 #define DCScreenWidth  [UIScreen mainScreen].bounds.size.width
 #define DCScreenHeight [UIScreen mainScreen].bounds.size.height
-#define DCContentTag   999
 
 @interface DCSwipCell () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic,   weak) UITableView *tableView;
-@property (nonatomic,   weak) UITableView *currentInnerTableView;
+@property (nonatomic,   weak) UIScrollView *currentInnerScrollView;
 @property (nonatomic,   weak) id<DCSwipCellDataSource> dataSource;
 @property (nonatomic,   weak) UINavigationController *nav;
 
@@ -85,6 +105,7 @@
 
 - (void)initUI
 {
+    //顶部segement
     _segment = [[DCSegmentView alloc]initWithFrame:CGRectMake(0, 0, DCScreenWidth, 44)];
     _segment.layoutType = DCSegmentViewLayoutLeft;
     _segment.titleArray = [self.dataSource swipCellTopTitles];
@@ -97,6 +118,10 @@
     [_segment mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.mas_equalTo(0);
     }];
+    //下面collectionView
+    [[self.dataSource swipCellRegisterClasses] enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.collectionView registerClass:[NSClassFromString(obj) class] forCellWithReuseIdentifier:obj];
+    }];
     [self.contentView addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.segment.mas_bottom);
@@ -108,15 +133,16 @@
 }
 
 #pragma mark - Privite
-- (void)catchMethodWithScrollView:(UITableView *)scrollView
+- (void)catchMethodWithScrollView:(UIScrollView *)scrollView
 {
-    scrollView.dc_swipFlag = YES;
+    if (scrollView.dc_swipFlag) return;
     @weakify(self)
     [[(NSObject *)scrollView.delegate rac_signalForSelector:@selector(scrollViewDidScroll:)] subscribeNext:^(RACTuple *_Nullable x) {
         @strongify(self)
         RACTupleUnpack(UIScrollView * sc) = x;
         [self configScroll:sc];
     }];
+    scrollView.dc_swipFlag = YES;
 }
 
 - (void)configScroll:(UIScrollView *)sc
@@ -129,7 +155,7 @@
     //外层tableView偏移量
     CGFloat outOffsetY = self.tableView.contentOffset.y;
     //内层tableView偏移量
-    CGFloat innerOffsetY = self.currentInnerTableView.contentOffset.y;
+    CGFloat innerOffsetY = self.currentInnerScrollView.contentOffset.y;
 
     if (sc == self.tableView) { //外层主tableView
         //（当外层已滑动到临界点 || 内层不在顶部） ，则固定外层offset
@@ -197,14 +223,14 @@
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"contentCell" forIndexPath:indexPath];
-    UITableView *innerTableView = [cell.contentView viewWithTag:DCContentTag];
-    if (!innerTableView) {
-        innerTableView = [self.dataSource swipCellContentViewWithIndex:indexPath.item];
-        innerTableView.frame = cell.contentView.bounds;
-        innerTableView.tag = DCContentTag;
-        [cell.contentView addSubview:innerTableView];
-        [self catchMethodWithScrollView:innerTableView];
+    UICollectionViewCell *cell = [self.dataSource swipCellCollectionView:collectionView cellForItemAtIndexPath:indexPath];
+    for (UIView *view in cell.contentView.subviews) {
+        if ([view isKindOfClass:[UIScrollView class]]) {
+            UIScrollView *sc = (UIScrollView *)view;
+            [self catchMethodWithScrollView:sc];
+            cell.dc_swipScrollView = sc;
+            break;
+        }
     }
     return cell;
 }
@@ -241,7 +267,6 @@
         _collectionView.bounces = NO;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-        [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"contentCell"];
         _collectionView.backgroundColor = [UIColor whiteColor];
         [self addSubview:_collectionView];
     }
@@ -264,9 +289,10 @@
     return _nav;
 }
 
-- (UITableView *)currentInnerTableView
+- (UIScrollView *)currentInnerScrollView
 {
-    return [[self.collectionView visibleCells].firstObject viewWithTag:DCContentTag];
+    UICollectionViewCell *cell = [self.collectionView visibleCells].firstObject;
+    return cell.dc_swipScrollView;
 }
 
 @end

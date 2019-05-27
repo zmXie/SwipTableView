@@ -7,19 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040021D32298002800CBF91C /* DCSwipCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040021CF2298002800CBF91C /* DCSwipCell.m */; };
+		040021D42298002800CBF91C /* DCSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040021D02298002800CBF91C /* DCSegmentView.m */; };
 		0400FE232271457700C42B01 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0400FE222271457700C42B01 /* AppDelegate.m */; };
 		0400FE262271457700C42B01 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0400FE252271457700C42B01 /* ViewController.m */; };
 		0400FE292271457700C42B01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0400FE272271457700C42B01 /* Main.storyboard */; };
 		0400FE2B2271457800C42B01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0400FE2A2271457800C42B01 /* Assets.xcassets */; };
 		0400FE2E2271457800C42B01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0400FE2C2271457800C42B01 /* LaunchScreen.storyboard */; };
 		0400FE312271457800C42B01 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0400FE302271457800C42B01 /* main.m */; };
-		0400FE39227149C000C42B01 /* DCSwipCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0400FE38227149C000C42B01 /* DCSwipCell.m */; };
-		040380DC2296311600710896 /* TestTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040380DB2296311600710896 /* TestTableView.m */; };
-		040380E12296B45700710896 /* DCSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040380E02296B45700710896 /* DCSegmentView.m */; };
+		0406CB49229B7ABE00DAB0B7 /* TestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0406CB48229B7ABE00DAB0B7 /* TestCollectionViewCell.m */; };
 		797F72067D798C9213D7510D /* libPods-SwipTableView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB190BB60BD5D10F669A4C15 /* libPods-SwipTableView.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		040021CF2298002800CBF91C /* DCSwipCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCSwipCell.m; sourceTree = "<group>"; };
+		040021D02298002800CBF91C /* DCSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCSegmentView.m; sourceTree = "<group>"; };
+		040021D12298002800CBF91C /* DCSwipCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCSwipCell.h; sourceTree = "<group>"; };
+		040021D22298002800CBF91C /* DCSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCSegmentView.h; sourceTree = "<group>"; };
 		0400FE1E2271457700C42B01 /* SwipTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwipTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0400FE212271457700C42B01 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0400FE222271457700C42B01 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -30,12 +34,8 @@
 		0400FE2D2271457800C42B01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0400FE2F2271457800C42B01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0400FE302271457800C42B01 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		0400FE37227149C000C42B01 /* DCSwipCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSwipCell.h; sourceTree = "<group>"; };
-		0400FE38227149C000C42B01 /* DCSwipCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSwipCell.m; sourceTree = "<group>"; };
-		040380DA2296311600710896 /* TestTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestTableView.h; sourceTree = "<group>"; };
-		040380DB2296311600710896 /* TestTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestTableView.m; sourceTree = "<group>"; };
-		040380DF2296B45700710896 /* DCSegmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSegmentView.h; sourceTree = "<group>"; };
-		040380E02296B45700710896 /* DCSegmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSegmentView.m; sourceTree = "<group>"; };
+		0406CB47229B7ABE00DAB0B7 /* TestCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCollectionViewCell.h; sourceTree = "<group>"; };
+		0406CB48229B7ABE00DAB0B7 /* TestCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCollectionViewCell.m; sourceTree = "<group>"; };
 		2BD27DED7D367A1C150D4AC2 /* Pods-SwipTableView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipTableView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwipTableView/Pods-SwipTableView.debug.xcconfig"; sourceTree = "<group>"; };
 		EB190BB60BD5D10F669A4C15 /* libPods-SwipTableView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwipTableView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFE2574A7BD3AFF449A1CB16 /* Pods-SwipTableView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipTableView.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipTableView/Pods-SwipTableView.release.xcconfig"; sourceTree = "<group>"; };
@@ -53,6 +53,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		040021CE2298002800CBF91C /* DCSwipCell */ = {
+			isa = PBXGroup;
+			children = (
+				040021D12298002800CBF91C /* DCSwipCell.h */,
+				040021CF2298002800CBF91C /* DCSwipCell.m */,
+				040021D22298002800CBF91C /* DCSegmentView.h */,
+				040021D02298002800CBF91C /* DCSegmentView.m */,
+			);
+			path = DCSwipCell;
+			sourceTree = "<group>";
+		};
 		0400FE152271457700C42B01 = {
 			isa = PBXGroup;
 			children = (
@@ -74,16 +85,13 @@
 		0400FE202271457700C42B01 /* SwipTableView */ = {
 			isa = PBXGroup;
 			children = (
+				040021CE2298002800CBF91C /* DCSwipCell */,
 				0400FE212271457700C42B01 /* AppDelegate.h */,
 				0400FE222271457700C42B01 /* AppDelegate.m */,
 				0400FE242271457700C42B01 /* ViewController.h */,
 				0400FE252271457700C42B01 /* ViewController.m */,
-				040380DA2296311600710896 /* TestTableView.h */,
-				040380DB2296311600710896 /* TestTableView.m */,
-				0400FE37227149C000C42B01 /* DCSwipCell.h */,
-				0400FE38227149C000C42B01 /* DCSwipCell.m */,
-				040380DF2296B45700710896 /* DCSegmentView.h */,
-				040380E02296B45700710896 /* DCSegmentView.m */,
+				0406CB47229B7ABE00DAB0B7 /* TestCollectionViewCell.h */,
+				0406CB48229B7ABE00DAB0B7 /* TestCollectionViewCell.m */,
 				0400FE272271457700C42B01 /* Main.storyboard */,
 				0400FE2A2271457800C42B01 /* Assets.xcassets */,
 				0400FE2C2271457800C42B01 /* LaunchScreen.storyboard */,
@@ -203,11 +211,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0400FE262271457700C42B01 /* ViewController.m in Sources */,
-				0400FE39227149C000C42B01 /* DCSwipCell.m in Sources */,
+				040021D32298002800CBF91C /* DCSwipCell.m in Sources */,
 				0400FE312271457800C42B01 /* main.m in Sources */,
 				0400FE232271457700C42B01 /* AppDelegate.m in Sources */,
-				040380DC2296311600710896 /* TestTableView.m in Sources */,
-				040380E12296B45700710896 /* DCSegmentView.m in Sources */,
+				040021D42298002800CBF91C /* DCSegmentView.m in Sources */,
+				0406CB49229B7ABE00DAB0B7 /* TestCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,22 +1,20 @@
 //
-//  TestTableView.m
+//  TestCollectionViewCell.m
 //  SwipTableView
 //
-//  Created by xzm on 2019/5/23.
+//  Created by xzm on 2019/5/27.
 //  Copyright © 2019 xzm. All rights reserved.
 //
 
-#import "TestTableView.h"
+#import "TestCollectionViewCell.h"
 
-@implementation TestTableView
+@implementation TestCollectionViewCell
 
-- (instancetype)init
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super init];
+    self = [super initWithFrame:frame];
     if (self) {
-        self.delegate = self;
-        self.dataSource = self;
-        self.tableFooterView = [UIView new];
+        [self.contentView addSubview:self.tableView];
     }
     return self;
 }
@@ -35,6 +33,18 @@
     }
     cell.textLabel.text = [NSString stringWithFormat:@"%@%ld",self.title,(long)indexPath.row];
     return cell;
+}
+
+#pragma mark - Lazzy
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:self.contentView.bounds];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.tableFooterView = [UIView new];
+    }
+    return _tableView;
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "DCSwipCell.h"
-#import "TestTableView.h"
+#import "TestCollectionViewCell.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,DCSwipCellDataSource>
 {
@@ -21,7 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _titleArray = @[@"全部",@"医生",@"患者",@"医患之家",@"医生1号",@"患者100号",@"医患之家",@"医生1号",@"患者100号"].mutableCopy;
+    self.title = @"SwipTableView";
+    _titleArray = @[@"全部",@"艾欧尼亚",@"德玛西亚",@"诺克萨斯",@"班德尔城",@"黑色玫瑰",@"皮城警备",@"暗影岛",@"祖安"].mutableCopy;
     UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -51,16 +52,23 @@
 
 #pragma mark - DCSwipCellDataSource
 /** 顶部标题数组 */
-- (NSArray *)swipCellTopTitles
+- (NSArray <NSString *>*)swipCellTopTitles
 {
     return _titleArray;
 }
-/** 内容视图 */
-- (UIScrollView *)swipCellContentViewWithIndex:(NSInteger)index
+/** 注册类 */
+- (NSArray <NSString *>*)swipCellRegisterClasses
 {
-    TestTableView *tableView = [TestTableView new];
-    tableView.title = _titleArray[index];
-    return tableView;
+    return @[@"TestCollectionViewCell"];
 }
+/** 内容cell，类名即identifier */
+- (UICollectionViewCell *)swipCellCollectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    TestCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TestCollectionViewCell" forIndexPath:indexPath];
+    cell.title = _titleArray[indexPath.item];
+    [cell.tableView reloadData];
+    return cell;
+}
+
 
 @end

@@ -13,9 +13,11 @@
 
 @required
 /** 顶部标题数组 */
-- (NSArray *)swipCellTopTitles;
-/** 内容视图 */
-- (UITableView *)swipCellContentViewWithIndex:(NSInteger)index;
+- (NSArray <NSString *>*)swipCellTopTitles;
+/** cell注册数组 */
+- (NSArray <NSString *>*)swipCellRegisterClasses;
+/** 内容cell */
+- (UICollectionViewCell *)swipCellCollectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
