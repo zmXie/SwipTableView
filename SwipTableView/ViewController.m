@@ -22,7 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"SwipTableView";
-    _titleArray = @[@"全部",@"艾欧尼亚",@"德玛西亚",@"诺克萨斯",@"班德尔城",@"黑色玫瑰",@"皮城警备",@"暗影岛",@"祖安"].mutableCopy;
+//    _titleArray = @[@"全部",@"峡谷之巅",@"艾欧尼亚",@"德玛西亚",@"诺克萨斯",@"班德尔城",@"黑色玫瑰",@"暗影岛",@"祖安"].mutableCopy;
+    _titleArray = @[@"全部",@"关注",@"热门"].mutableCopy;
     UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -46,6 +47,8 @@
         return cell;
     } else {
         DCSwipCell *cell = [DCSwipCell cellWithTableView:tableView dataSource:self];
+        cell.segment.layoutType = DCSegmentViewLayoutCenter;
+        [cell.segment refreshUI];
         return cell;
     }
 }

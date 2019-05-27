@@ -153,8 +153,14 @@
 
 - (void)selectItemToIndex:(NSInteger)index animated:(BOOL)animated
 {
+    if (_labelArray.count <= index) return;
     [self selectWithItem:_labelArray[index] animated:animated];
     !_selectBlock ? : _selectBlock(self.currentIndex, self.currentTitle);
+}
+
+- (void)refreshUI
+{
+    self.titleArray = _titleArray;
 }
 
 - (CGSize)intrinsicContentSize

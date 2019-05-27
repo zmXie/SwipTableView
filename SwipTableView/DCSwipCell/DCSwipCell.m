@@ -119,9 +119,7 @@
         make.top.left.mas_equalTo(0);
     }];
     //下面collectionView
-    [[self.dataSource swipCellRegisterClasses] enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [self.collectionView registerClass:[NSClassFromString(obj) class] forCellWithReuseIdentifier:obj];
-    }];
+    [self registerClasses];
     [self.contentView addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.segment.mas_bottom);
@@ -133,6 +131,13 @@
 }
 
 #pragma mark - Privite
+- (void)registerClasses
+{
+    [[self.dataSource swipCellRegisterClasses] enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.collectionView registerClass:[NSClassFromString(obj) class] forCellWithReuseIdentifier:obj];
+    }];
+}
+
 - (void)catchMethodWithScrollView:(UIScrollView *)scrollView
 {
     if (scrollView.dc_swipFlag) return;
@@ -212,6 +217,7 @@
 - (void)reloadData
 {
     self.segment.titleArray = [self.dataSource swipCellTopTitles];
+    [self registerClasses];
     [self.collectionView reloadData];
 }
 
