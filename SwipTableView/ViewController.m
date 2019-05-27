@@ -12,6 +12,7 @@
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,DCSwipCellDataSource>
 {
+    UITableView *_tableView;
     NSMutableArray *_titleArray;
 }
 
@@ -23,11 +24,25 @@
     [super viewDidLoad];
     self.title = @"SwipTableView";
     _titleArray = @[@"全部",@"峡谷之巅",@"艾欧尼亚",@"德玛西亚",@"诺克萨斯",@"班德尔城",@"黑色玫瑰",@"暗影岛",@"祖安"].mutableCopy;
-//    _titleArray = @[@"全部",@"关注",@"热门"].mutableCopy;
-    UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    [self.view addSubview:tableView];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self.view addSubview:_tableView];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshUI)];
+}
+
+- (void)refreshUI
+{
+    DCSwipCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
+    if (cell.segment.layoutType == DCSegmentViewLayoutCenter) {
+        cell.segment.layoutType = DCSegmentViewLayoutLeft;
+        _titleArray = @[@"全部",@"峡谷之巅",@"艾欧尼亚",@"德玛西亚",@"诺克萨斯",@"班德尔城",@"黑色玫瑰",@"暗影岛",@"祖安"].mutableCopy;
+    } else {
+        cell.segment.layoutType = DCSegmentViewLayoutCenter;
+        _titleArray = @[@"全部",@"关注",@"热门"].mutableCopy;
+    }
+    [cell reloadData];
 }
 
 #pragma mark - UITableViewDataSource
@@ -47,8 +62,6 @@
         return cell;
     } else {
         DCSwipCell *cell = [DCSwipCell cellWithTableView:tableView dataSource:self];
-//        cell.segment.layoutType = DCSegmentViewLayoutCenter;
-//        [cell.segment refreshUI];
         return cell;
     }
 }
