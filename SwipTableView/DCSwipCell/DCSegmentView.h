@@ -22,22 +22,21 @@ typedef NS_ENUM (NSInteger, DCSegmentViewLayoutType) {
 @property (nonatomic, strong) UIColor *themeColor;
 @property (nonatomic, assign) CGFloat itemSpace; //间距，居左默认 25  居中默认50
 @property (nonatomic, assign) DCSegmentViewLayoutType layoutType;
-@property (nonatomic, strong, readonly) NSString *currentTitle;
-@property (nonatomic, assign, readonly) NSInteger currentIndex;
+@property (nonatomic, strong, readonly) NSString *selectedTitle;
+@property (nonatomic, assign, readonly) NSInteger selectedIndex;
 @property (nonatomic, copy) void (^ selectBlock)(NSInteger index, NSString *title);
 
-/**
- 选中某一item
-
- @param index 索引
- @param animated 动画
- */
-- (void)selectItemToIndex:(NSInteger)index animated:(BOOL)animated;
-
+- (void)setSelectedIndex:(NSUInteger)selectedIndex offsetLine:(BOOL)offsetLine;
 
 /**
- 刷新UI
+ invoke when scrollView did scroll
+ 
+ - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+ [self.columnHeader changeColunmColorByScrollView:scrollView];
+ }
+ 
+ @param scrollView  横向滑动的tableview、collectionview
  */
-- (void)refreshUI;
+- (void)changeColunmColorByScrollView:(UIScrollView *)scrollView;
 
 @end

@@ -154,7 +154,7 @@
 {
     //顶部距离
     CGFloat top = [self convertRect:self.bounds toView:self.tableView].origin.y;
-    CGFloat start = [self getContentOffYStart];
+    CGFloat start = [self getContentOffYStart]; //获取congtentoffY坐标的起始点
     //设置临界点
     top = top + start;
     //外层tableView偏移量
@@ -188,10 +188,11 @@
             return 0;
         } else {
             UIApplication *app = [UIApplication sharedApplication];
+            UINavigationController *nav = self.nav;
             CGFloat sH = app.statusBarHidden ? 0 : app.statusBarFrame.size.height;
-            if (self.nav.navigationBarHidden) {
+            if (!nav || nav.navigationBarHidden) { //无导航 或 导航栏已隐藏，则忽略导航
                 return -sH;
-            } else if (self.nav.navigationBar.translucent == NO) {
+            } else if (nav.navigationBar.translucent == NO) {
                 return 0;
             }
             return -sH - 44;
@@ -246,16 +247,15 @@
     return CGSizeMake(DCScreenWidth, self.innerHeight);
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
-    NSInteger index = scrollView.contentOffset.x / self.frame.size.width;
-    [self.segment selectItemToIndex:index animated:YES];
+    NSInteger index = (*targetContentOffset).x/DCScreenWidth;
+    [self.segment setSelectedIndex:index offsetLine:NO];
 }
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSInteger index = scrollView.contentOffset.x / self.frame.size.width;
-    [self.segment selectItemToIndex:index animated:YES];
+    [self.segment changeColunmColorByScrollView:scrollView];
 }
 
 #pragma mark - Lazzy
