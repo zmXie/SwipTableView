@@ -83,7 +83,6 @@
 @property (nonatomic,   weak) UITableView *tableView;
 @property (nonatomic,   weak) UIScrollView *currentInnerScrollView;
 @property (nonatomic,   weak) id<DCSwipCellDataSource> dataSource;
-@property (nonatomic,   weak) UINavigationController *nav;
 
 @end
 
@@ -112,6 +111,7 @@
     @weakify(self)
     _segment.selectBlock = ^(NSInteger index, NSString *title) {
         @strongify(self)
+        [self scrollToTopWithIndex:index];
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition: UICollectionViewScrollPositionNone animated: NO];
     };
     [self.contentView addSubview:_segment];
@@ -154,9 +154,10 @@
 {
     //顶部距离
     CGFloat top = [self convertRect:self.bounds toView:self.tableView].origin.y;
-    CGFloat start = [self getContentOffYStart]; //获取congtentoffY坐标的起始点
+    //获取外层tableView的contentInset.top
+    CGFloat insetT = [self getContentInsetT:self.tableView];
     //设置临界点
-    top = top + start;
+    top = top - insetT;
     //外层tableView偏移量
     CGFloat outOffsetY = self.tableView.contentOffset.y;
     //内层tableView偏移量
@@ -181,37 +182,33 @@
     }
 }
 
-- (CGFloat)getContentOffYStart
+- (CGFloat)getContentInsetT:(UIScrollView *)scrollView
 {
     if (@available(iOS 11.0, *)) {
-        if ((self.tableView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentNever)) {
-            return 0;
-        } else {
-            UIApplication *app = [UIApplication sharedApplication];
-            UINavigationController *nav = self.nav;
-            CGFloat sH = app.statusBarHidden ? 0 : app.statusBarFrame.size.height;
-            if (!nav || nav.navigationBarHidden) { //无导航 或 导航栏已隐藏，则忽略导航
-                return -sH;
-            } else if (nav.navigationBar.translucent == NO) {
-                return 0;
-            }
-            return -sH - 44;
-        }
+        return scrollView.adjustedContentInset.top;
     } else {
-        return 0;
+        return scrollView.contentInset.top;
     }
 }
 
 - (CGFloat)innerHeight
 {
-    CGFloat h = DCScreenHeight - self.segment.frame.size.height;
-    if (!self.nav.navigationBarHidden) {
-        h -= 44;
+    if (@available(iOS 11.0, *)) {
+        return self.tableView.frame.size.height - self.tableView.adjustedContentInset.top - self.tableView.adjustedContentInset.bottom - self.segment.frame.size.height;
+    } else {
+        return self.tableView.frame.size.height - self.tableView.contentInset.top - self.tableView.contentInset.bottom - self.segment.frame.size.height;
     }
-    if (![UIApplication sharedApplication].statusBarHidden) {
-        h -= [UIApplication sharedApplication].statusBarFrame.size.height;
+}
+
+- (void)scrollToTopWithIndex:(NSInteger)index
+{
+    //外层tableview可滑动情况下，在切换内层tableView时，把内层tableView置顶
+    if (self.tableView.showsVerticalScrollIndicator) {
+        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
+        CGPoint off = cell.dc_swipScrollView.contentOffset;
+        off.y = 0 - [self getContentInsetT:cell.dc_swipScrollView];
+        [cell.dc_swipScrollView setContentOffset:off];
     }
-    return h;
 }
 
 #pragma mark - Publish
@@ -251,6 +248,7 @@
 {
     NSInteger index = (*targetContentOffset).x/DCScreenWidth;
     [self.segment setSelectedIndex:index offsetLine:NO];
+    [self scrollToTopWithIndex:index];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -277,22 +275,6 @@
         [self addSubview:_collectionView];
     }
     return _collectionView;
-}
-
-- (UINavigationController *)nav
-{
-    if (!_nav) {
-        UIResponder *next = [self nextResponder];
-        do {
-            if ([next isKindOfClass:[UINavigationController class]]) {
-                _nav = (UINavigationController *)next;
-                next = nil;
-            } else {
-                next = [next nextResponder];
-            }
-        } while (next != nil);
-    }
-    return _nav;
 }
 
 - (UIScrollView *)currentInnerScrollView
